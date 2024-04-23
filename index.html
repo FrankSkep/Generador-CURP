@@ -58,21 +58,23 @@
               <input type="number" class="form-control" id="anioNac" placeholder="1900-Presente">
             </div>
           </div>
-
-          <div class="mb-3">
-            <label for="sexo" class="form-label">Sexo *:</label>
-            <select class="form-select" id="sexo">
-              <option value="" selected>Seleccione su sexo</option>
-              <option value="H">Hombre</option>
-              <option value="M">Mujer</option>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label for="estadoNac" class="form-label">Estado de nacimiento *:</label>
-            <select class="form-select" id="estadoNac">
-              <option value="" selected>Seleccione el estado</option>
-            </select>
+            <!--  aqui -->
+          <div class="row mb-3">
+            <div class="col">
+              <label for="sexo" class="form-label">Sexo *:</label>
+              <select class="form-select" id="sexo">
+                <option value="" selected>Seleccione su sexo</option>
+                <option value="H">Hombre</option>
+                <option value="M">Mujer</option>
+              </select>
+            </div>
+  
+            <div class="col">
+              <label for="estadoNac" class="form-label">Estado de nacimiento *:</label>
+              <select class="form-select" id="estadoNac">
+                <option value="" selected>Seleccione el estado</option>
+              </select>
+            </div>
           </div>
         </fieldset>
 
@@ -81,11 +83,10 @@
           <button type="button" class="btn btn-success" onclick="generarCurp()">Generar CURP</button>
           <!-- Boton para limpiar datos de todos los campos -->
           <button type="reset" class="btn btn-danger" onclick="limpiarForm()">Limpiar</button>
-      </div>
+        </div>
         
         <!-- Espacio para desplegar mensajes -->
-        <br>
-        <h4 class="text-center mb-1" id="mensajes">-</h4>
+        <h5 id="mensajes"></h5>
 
       </form>
     </div>

@@ -85,7 +85,7 @@ function llenarSelectores() {
 }
 
 function limpiarForm() {
-    document.getElementById("mensajes").innerText = '-';
+    document.getElementById("mensajes").innerText = '';
 }
 
 llenarSelectores();

@@ -11,7 +11,13 @@
 #mensajes {
     background-color: #fff;
     color: #000;
-    border-radius: 10px;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    margin-top: 20px;
+    padding: 10px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -30,7 +36,11 @@ body {
 }
 
 .navbar-brand {
-    color: #fff; /* Cambié el color del texto del enlace del logo a blanco */
+    color: #ffffff;
+}
+
+.navbar {
+    background-color: #343a4094;
 }
 
 .navbar-bottom-border {
@@ -38,7 +48,8 @@ body {
 }
 
 #curpForm {
-    color: #fff; /* Cambié el color del texto dentro del formulario a blanco */
+    color: #fff;
+    
 }
 
 /* Estilos para hover en la barra de navegación */
