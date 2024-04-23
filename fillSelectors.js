@@ -84,4 +84,8 @@ function llenarSelectores() {
     }
 }
 
+function limpiarForm() {
+    document.getElementById("mensajes").innerText = '-';
+}
+
 llenarSelectores();

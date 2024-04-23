@@ -1,27 +1,28 @@
 function generarCurp() {
     // Obtener los valores de los campos del formulario
-    let nombre = document.getElementById("nombr").value;
-    let primerApellido = document.getElementById("apPat").value;
-    let segundoApellido = document.getElementById("apMat").value;
-    let diaNac = document.getElementById("diaNac").value;
-    let mesNac = document.getElementById("mesNac").value;
-    let anioNac = document.getElementById("anioNac").value;
-    let sexo = document.getElementById("sexo").value;
-    let estadoNac = document.getElementById("estadoNac").value;
+    const nombre = document.getElementById("nombr").value;
+    const primerApellido = document.getElementById("apPat").value;
+    const segundoApellido = document.getElementById("apMat").value;
+    const diaNac = document.getElementById("diaNac").value;
+    const mesNac = document.getElementById("mesNac").value;
+    const anioNac = document.getElementById("anioNac").value;
+    const sexo = document.getElementById("sexo").value;
+    const estadoNac = document.getElementById("estadoNac").value;
+    const mensaje = document.getElementById("mensajes");
 
     if (!nombre || !primerApellido || !diaNac || !mesNac || !anioNac || !sexo || !estadoNac) {
-        document.getElementById("mensajes").innerText = "Por favor llene todos los campos.";
+        mensaje.innerText = "Llene los campos obligatorios (*).";
         return;
     }
 
     if(!existeFecha(diaNac, mesNac, anioNac)) {
-        document.getElementById("mensajes").innerText = "Por favor ingrese una fecha valida.";
+        mensaje.innerText = "Ingrese una fecha valida.";
         return;
     }
 
-    let nombreValido = validarNombre(nombre);
-    let ap1Valido = elimPrep(primerApellido);
-    let ap2Valido = elimPrep(segundoApellido);
+    const nombreValido = validarNombre(nombre);
+    const ap1Valido = elimPrep(primerApellido);
+    const ap2Valido = elimPrep(segundoApellido);
 
     let CURP = []; // Arreglo vacio para almacenar caracteres CURP
 
@@ -44,12 +45,67 @@ function generarCurp() {
     CURP[16] = homonimia(anioNac);
     CURP[17] = genNumAleatorio(0, 9);
 
-    CURP = altisonante(CURP); // Guardar arreglo modificado
-
-    CURP = CURP.join(''); // Convertir a string
+    const CURPString = altisonante(CURP).join(''); // Convertir a string
 
     // Desplegar CURP
-    document.getElementById("mensajes").innerText = "CURP : " + CURP;
+    mensaje.innerText = "CURP : " + CURPString;
+}
+
+function elimPrep(string) {
+    const preposiciones = /\b(?:da|das|de|del|der|di|die|dd|y|el|la|los|las|le|les|mac|mc|van|von)\b/gi;
+    let resultado = string.replace(preposiciones, "");
+    return validarCadena(resultado);
+}
+
+function validarNombre(nombre) {
+
+    const excepciones = /\b(?:maria|jose|ma|m|j)\b/gi;
+
+    // Buscar el índice del primer espacio
+    let indiceEspacio = nombre.indexOf(' ');
+
+    let parte1, parte2; // Almacenar partes del nombre
+    
+    // Si hay al menos un espacio en la cadena
+    if (indiceEspacio !== -1) {
+        // Dividir la cadena en dos, en base al primer espacio
+        parte1 = nombre.slice(0, indiceEspacio);
+        parte2 = nombre.slice(indiceEspacio + 1);
+
+        // Si parte1 coincide con las alguna excepcion
+        if (excepciones.test(parte1)) {
+            return elimPrep(parte2);
+        } 
+    }
+    return elimPrep(nombre)
+}
+
+function validarCadena(string) {
+    let doblesEspacios = string.replace(/\s{2,}/g, ' ');
+    let espaciosIni_Fin = doblesEspacios.trim();;
+    return espaciosIni_Fin.toUpperCase();
+}
+
+function primVocalInter(string) {
+    let str = string.toUpperCase();
+    for(let i = 0; i < string.length; i++) {
+        if(i > 0) {
+            if(str[i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U')
+            return str[i];
+        }
+    }
+    return 'X';
+}
+
+function primConsonInter(string) {
+    let str = string.toUpperCase();
+    for(let i = 0; i < string.length; i++) {
+        if(i > 0) {
+            if(str[i] != 'A' && str[i] != 'E' && str[i] != 'I' && str[i] != 'O' && str[i] != 'U')
+            return str[i];
+        }
+    }
+    return 'X';
 }
 
 function existeFecha(dia, mes, anio) {
@@ -57,7 +113,7 @@ function existeFecha(dia, mes, anio) {
     let diaAct = parseInt(fechaAct.getDate(), 10);
     let mesAct = parseInt(fechaAct.getMonth() + 1, 10);
     let anioAct = parseInt(fechaAct.getFullYear(), 10);
-    console.log(`Fecha actual: ${diaAct} ${mesAct} ${anioAct}`);
+
     dia = parseInt(dia, 10);
     mes = parseInt(mes, 10);
     anio = parseInt(anio, 10);
@@ -85,7 +141,6 @@ function existeFecha(dia, mes, anio) {
         }
     } else if(mes == 2) {
         if(esBisiesto(anio)) {
-            console.log("Entro aqui");
             if(dia > 29) {
                 return false;
             }
@@ -93,71 +148,11 @@ function existeFecha(dia, mes, anio) {
             return false;
         }
     }
-
     return true; // Todo es valido
 }
 
 function esBisiesto(anio) {
     return (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
-}
-
-function limpiarForm() {
-
-    document.getElementById("mensajes").innerText = '-';
-}
-
-function validarNombre(nombre) {
-
-    const excepciones = /\b(?:maria|jose|ma|m|j)\b/gi;
-
-    // Buscar el índice del primer espacio
-    let indiceEspacio = nombre.indexOf(' ');
-
-    let parte1, parte2;
-    
-    // Si hay al menos un espacio en la cadena
-    if (indiceEspacio !== -1) {
-        // Dividir la cadena en dos, en base al primer espacio
-        parte1 = nombre.slice(0, indiceEspacio);
-        parte2 = nombre.slice(indiceEspacio + 1);
-
-        // Si parte1 coincide con las excepciones
-        if (excepciones.test(parte1)) {
-            return elimPrep(parte2);
-        } //else {
-           // return elimPrep(nombre);
-       // }
-    }
-    return elimPrep(nombre)
-}
-
-function primVocalInter(string) {
-
-    let str = string.toUpperCase();
-    for(let i = 0; i < string.length; i++) {
-        if(i > 0) {
-            if(str[i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U')
-            return str[i];
-        }
-    }
-    return 'X';
-}
-
-function primConsonInter(string) {
-    let str = string.toUpperCase();
-    for(let i = 0; i < string.length; i++) {
-        if(i > 0) {
-            if(str[i] != 'A' && str[i] != 'E' && str[i] != 'I' && str[i] != 'O' && str[i] != 'U')
-            return str[i];
-        }
-    }
-    return 'X';
-}
-
-function elimPrep(string) {
-    const preposiciones = /\b(?:da|das|de|del|der|di|die|dd|y|el|la|los|las|le|les|mac|mc|van|von)\b/gi;
-    let resultado = string.replace(preposiciones, "");
-    return validarCadena(resultado);
 }
 
 function homonimia(anio) {
@@ -174,7 +169,7 @@ function homonimia(anio) {
 }
 
 function altisonante(curp) {
-    // Convertir a string y tomar primeros 4 caracteres
+    // Tomar primeros 4 caracteres para comparar
     let substr = curp.join('').substring(0, 4);
 
     const palabras = [
@@ -191,12 +186,6 @@ function altisonante(curp) {
         return curp;
     }
     return curp;
-}
-
-function validarCadena(string) {
-    let doblesEspacios = string.replace(/\s{2,}/g, ' ');
-    let espaciosIni_Fin = doblesEspacios.trim();;
-    return espaciosIni_Fin.toUpperCase();
 }
 
 function genNumAleatorio(min, max) {

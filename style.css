@@ -1,6 +1,7 @@
 #container {
     background-color: rgba(0, 0, 0, 0.4);
     padding: 20px;
+    margin-bottom: 20px;
     border-radius: 10px;
     border-style: solid;
     border-color: white;
@@ -13,13 +14,13 @@
     border-radius: 10px;
 }
 
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #343a40; /* Cambié el color de fondo del footer para que coincida con el tema oscuro */
-}
+@media (min-width: 768px) {
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  }
 
 body {
     background-image: url('images/background.png');
