@@ -202,19 +202,3 @@ function validarCadena(string) {
 function genNumAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
-
-// let cad = [];
-
-// cad[0] = 'F';
-// cad[1] = 'A';
-// cad[2] = 'L';
-// cad[3] = 'O';
-// cad[4] = 'S';
-// cad[5] = 'C';
-
-// cad = altisonante(cad);
-// console.log(cad);
-
-// existeFecha('20', 4, '2002');
-
-//console.log(existeFecha(23, 5, 2025));
