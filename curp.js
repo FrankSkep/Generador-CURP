@@ -10,12 +10,12 @@ function generarCurp() {
     let estadoNac = document.getElementById("estadoNac").value;
 
     if (!nombre || !primerApellido || !diaNac || !mesNac || !anioNac || !sexo || !estadoNac) {
-        document.getElementById("curpGenerada").innerText = "Por favor llene todos los campos.";
+        document.getElementById("mensajes").innerText = "Por favor llene todos los campos.";
         return;
     }
 
     if(!existeFecha(diaNac, mesNac, anioNac)) {
-        document.getElementById("curpGenerada").innerText = "Por favor ingrese una fecha valida.";
+        document.getElementById("mensajes").innerText = "Por favor ingrese una fecha valida.";
         return;
     }
 
@@ -49,50 +49,61 @@ function generarCurp() {
     CURP = CURP.join(''); // Convertir a string
 
     // Desplegar CURP
-    document.getElementById("curpGenerada").innerText = "CURP : " + CURP;
+    document.getElementById("mensajes").innerText = "CURP : " + CURP;
 }
 
 function existeFecha(dia, mes, anio) {
     let fechaAct = new Date();
     let diaAct = parseInt(fechaAct.getDate(), 10);
-    let mesAct = parseInt(fechaAct.getMonth(), 10);
+    let mesAct = parseInt(fechaAct.getMonth() + 1, 10);
     let anioAct = parseInt(fechaAct.getFullYear(), 10);
-
+    console.log(`Fecha actual: ${diaAct} ${mesAct} ${anioAct}`);
     dia = parseInt(dia, 10);
     mes = parseInt(mes, 10);
     anio = parseInt(anio, 10);
 
+    // Validar año futuro
     if(anio > anioAct || anio < 1900) {
         return false;
     }
-
+    
+    // Validar fecha futura
     if(anio == anioAct) {
-        if(mes == mesAct && dia > diaAct) {
+        if(mes == mesAct) {
+            if(dia > diaAct) {
+                return false;
+            }
+        } else if(mes > mesAct) {
             return false;
         }
     }
 
-    return true;
+    // Validar mes y dia
+    if(mes == 4 || mes == 6 || mes == 9 || mes == 1) {
+        if(dia > 30) {
+            return false;
+        }
+    } else if(mes == 2) {
+        if(esBisiesto(anio)) {
+            console.log("Entro aqui");
+            if(dia > 29) {
+                return false;
+            }
+        } else if(dia > 28) {
+            return false;
+        }
+    }
+
+    return true; // Todo es valido
 }
 
-function borrarFormulario() {
+function esBisiesto(anio) {
+    return (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+}
 
-    let nombre = document.getElementById("nombr");
-    let primerApellido = document.getElementById("apPat");
-    let segundoApellido = document.getElementById("apMat");
-    let diaNac = document.getElementById("diaNac");
-    let mesNac = document.getElementById("mesNac");
-    let anioNac = document.getElementById("anioNac");
-    let sexo = document.getElementById("sexo");
-    let estadoNac = document.getElementById("estadoNac");
-    let curp = document.getElementById("curpGenerada");
+function limpiarForm() {
 
-    elementos = [nombre, primerApellido, segundoApellido, diaNac, mesNac, anioNac, sexo, estadoNac];
-
-    for(let i = 0; i < elementos.length; i++) {
-        elementos[i].value = "";
-    }
-    curp.innerText = 'CURP : ';
+    document.getElementById("mensajes").innerText = '-';
 }
 
 function validarNombre(nombre) {
@@ -113,12 +124,10 @@ function validarNombre(nombre) {
         // Si parte1 coincide con las excepciones
         if (excepciones.test(parte1)) {
             return elimPrep(parte2);
-        } else {
-            return elimPrep(nombre);
-        }
-    } //else {
-        //return elimPrep(nombre);
-    //}
+        } //else {
+           // return elimPrep(nombre);
+       // }
+    }
     return elimPrep(nombre)
 }
 
@@ -205,3 +214,7 @@ function genNumAleatorio(min, max) {
 
 // cad = altisonante(cad);
 // console.log(cad);
+
+// existeFecha('20', 4, '2002');
+
+//console.log(existeFecha(23, 5, 2025));

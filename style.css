@@ -1,10 +1,57 @@
-/* #curpForm {
-    background-color: rgb(139, 183, 221);
+#container {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px;
     border-radius: 10px;
-} */
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+}
 
-#titulo {
-    background-color: black;
-    color: white;
+#mensajes {
+    background-color: #fff;
+    color: #000;
     border-radius: 10px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40; /* Cambié el color de fondo del footer para que coincida con el tema oscuro */
+}
+
+body {
+    background-image: url('images/background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.navbar-brand {
+    color: #fff; /* Cambié el color del texto del enlace del logo a blanco */
+}
+
+.navbar-bottom-border {
+    border-bottom: 1px solid #ccc;
+}
+
+#curpForm {
+    color: #fff; /* Cambié el color del texto dentro del formulario a blanco */
+}
+
+/* Estilos para hover en la barra de navegación */
+.navbar-transparent.navbar-bottom-border:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Cambié el estilo del botón Limpiar */
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
 }

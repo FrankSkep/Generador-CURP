@@ -1,5 +1,6 @@
-function selectDias() {
+function llenarSelectores() {
 
+    // Selector dias
     const selectDia = document.getElementById("diaNac");
 
     const dias = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10','11', '12',
@@ -12,10 +13,8 @@ function selectDias() {
         option.value = dias[i];
         selectDia.appendChild(option);
     }
-}
 
-function selectMeses() {
-
+    // Selector Meses
     const mesHTML = document.getElementById("mesNac");
     const meses = [
         { nombre: 'Enero', valor: '01' },
@@ -38,10 +37,8 @@ function selectMeses() {
         option.value = mes.valor;
         mesHTML.appendChild(option);
     });
-}
 
-function selectEstados() {
-
+    // Selector Estados
     const estados = {
         "AGUASCALIENTES": "AS",
         "BAJA CALIFORNIA": "BC",
@@ -87,6 +84,4 @@ function selectEstados() {
     }
 }
 
-selectDias();
-selectMeses();
-selectEstados();
+llenarSelectores();
