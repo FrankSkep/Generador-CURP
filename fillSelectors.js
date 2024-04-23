@@ -1,7 +1,7 @@
 function llenarSelectores() {
 
     // Selector dias
-    const selectDia = document.getElementById("diaNac");
+    const selectorDia = document.getElementById("diaNac");
 
     const dias = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10','11', '12',
                   '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24',
@@ -11,11 +11,11 @@ function llenarSelectores() {
         const option = document.createElement("option");
         option.text = dias[i];
         option.value = dias[i];
-        selectDia.appendChild(option);
+        selectorDia.appendChild(option);
     }
 
     // Selector Meses
-    const mesHTML = document.getElementById("mesNac");
+    const selectorMes = document.getElementById("mesNac");
     const meses = [
         { nombre: 'Enero', valor: '01' },
         { nombre: 'Febrero', valor: '02' },
@@ -35,7 +35,7 @@ function llenarSelectores() {
         const option = document.createElement("option");
         option.text = mes.nombre;
         option.value = mes.valor;
-        mesHTML.appendChild(option);
+        selectorMes.appendChild(option);
     });
 
     // Selector Estados
@@ -75,12 +75,12 @@ function llenarSelectores() {
         "EXTRANJERO": "NE"
     };
 
-    const estadosHTML = document.getElementById("estadoNac");
+    const selectorEstado = document.getElementById("estadoNac");
     for (const estado in estados) {
         const option = document.createElement("option");
         option.text = estado;
         option.value = estados[estado];
-        estadosHTML.appendChild(option);
+        selectorEstado.appendChild(option);
     }
 }
 
