@@ -20,7 +20,7 @@
     justify-content: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 720px) {
     footer {
       position: fixed;
       bottom: 0;
@@ -49,7 +49,6 @@ body {
 
 #curpForm {
     color: #fff;
-    
 }
 
 /* Estilos para hover en la barra de navegación */
