@@ -1,16 +1,20 @@
 function generarCurp() {
-    // Obtener los valores de los campos del formulario
-    const nombre = document.getElementById("nombr").value;
-    const primerApellido = document.getElementById("apPat").value;
-    const segundoApellido = document.getElementById("apMat").value;
-    const diaNac = document.getElementById("diaNac").value;
-    const mesNac = document.getElementById("mesNac").value;
-    const anioNac = document.getElementById("anioNac").value;
-    const sexo = document.getElementById("sexo").value;
-    const estadoNac = document.getElementById("estadoNac").value;
+
     const mensaje = document.getElementById("mensajes");
 
-    if (!nombre || !primerApellido || !diaNac || !mesNac || !anioNac || !sexo || !estadoNac) {
+    const datos = {
+        nombre :  nombre = document.getElementById("nombr").value,
+        apellido1 : document.getElementById("apPat").value,
+        apellido2 : document.getElementById("apMat").value,
+        diaNac : document.getElementById("diaNac").value,
+        mesNac : document.getElementById("mesNac").value,
+        anioNac : document.getElementById("anioNac").value,
+        sexo : document.getElementById("sexo").value,
+        anioNac : document.getElementById("sexo").value,
+        estadoNac : document.getElementById("estadoNac").value,
+    }
+
+    if (!datos.nombre || !datos.apellido1 || !diaNac || !mesNac || !anioNac || !sexo || !estadoNac) {
         mensaje.innerText = "Llene los campos obligatorios (*).";
         return;
     }
@@ -56,6 +60,10 @@ function elimPrep(string) {
     let resultado = string.replace(preposiciones, "");
     return validarCadena(resultado);
 }
+
+function esAlfabetico(cadena) {
+    return /^[a-zA-Z]+$/.test(cadena);
+  }
 
 function validarNombre(nombre) {
 
@@ -191,3 +199,11 @@ function altisonante(curp) {
 function genNumAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
+
+const datos = {
+    nombre :  "Prueba",
+    apellido1 : "Prueba2",
+    apellido2 : "Prueba3",
+};
+
+console.log(datos.apellido1);
