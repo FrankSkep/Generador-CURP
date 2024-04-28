@@ -271,6 +271,7 @@ function crearOpcion(valor, texto) {
     return option;
 }
 
+// Llena los selectores de dia, mes y estado
 function llenarSelectores() {
     const dias = Array.from({ length: 31 }, (_, i) => (i + 1).toString().padStart(2, '0'));
     const meses = [
