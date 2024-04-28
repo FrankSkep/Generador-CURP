@@ -1,4 +1,4 @@
-# <h1 align="center">Generador de CURP con Bootstrap</h1>
+# <h1 align="center">Generador de CURP</h1>
 
 ![Captura de pantalla del juego](https://i.ibb.co/rytG8zq/img.png)
 Este es un simple generador de CURP (Clave Única de Registro de Población) desarrollado en HTML, CSS, JavaScript y Bootstrap. La CURP es un identificador único para cada ciudadano en México, y este programa proporciona una manera sencilla de generar uno.
