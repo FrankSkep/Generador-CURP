@@ -1,5 +1,6 @@
 const mensajes = document.getElementById("mensajes");
 
+// Recibe y verifica los datos ingresados
 function validarDatos() {
     const datos = {
         nombre: document.getElementById("nombre").value.trim(),
@@ -44,6 +45,7 @@ function validarDatos() {
     generarCurp(datos);
 }
 
+// Determina si un campo esta vacio
 function validarCampo(valor, mensajeError) {
     if (!valor) {
         mostrarMensaje(mensajeError);
@@ -52,6 +54,7 @@ function validarCampo(valor, mensajeError) {
     return true;
 }
 
+// Recibe los datos validados y genera el CURP
 function generarCurp(datos) {
     let CURP = [];
 
@@ -74,25 +77,17 @@ function generarCurp(datos) {
     CURP[16] = homonimia(datos.anioNac);
     CURP[17] = genNumAleatorio(0, 9);
 
-    const CURPString = altisonante(CURP).join(""); // Convertir a string
+    const CURPString = altisonante(CURP).join(""); // Convertir a cadena
 
     mostrarMensaje("CURP : " + CURPString); // Desplegar CURP
 }
 
+// Recibe un cadena y lo muestra en zona mensajes
 function mostrarMensaje(mensaje) {
     mensajes.innerText = mensaje;
 }
 
-function elimPrep(string) {
-    const prepos = /\b(?:da|das|de|del|der|di|die|dd|y|el|la|los|las|le|les|mac|mc|van|von)\b/gi;
-    let resultado = string.replace(prepos, "");
-    return noDoblesEspacios(resultado);
-}
-
-function esAlfabetico(cadena) {
-    return /^[a-zA-Z\s]+$/.test(cadena);
-}
-
+// Valida las excepciones de nombres
 function validarNombre(nombre) {
     const excepciones = /\b(?:maria|jose|ma|m|j)\b/gi;
 
@@ -114,15 +109,52 @@ function validarNombre(nombre) {
     return elimPrep(nombre);
 }
 
-function noDoblesEspacios(string) {
-    let resultado = string.replace(/\s{2,}/g, " ");
+// Elimina preposiciones en un cadena
+function elimPrep(cadena) {
+    const prepos = /\b(?:da|das|de|del|der|di|die|dd|y|el|la|los|las|le|les|mac|mc|van|von)\b/gi;
+    let resultado = cadena.replace(prepos, "");
+    return noDoblesEspacios(resultado);
+}
+
+// Busca y reemplaza caracteres no validos en un cadena
+function validarCaracteres(cadena) {
+    const noValidos = "áÁäÄéÉëËíÍïÏóÓöÖúÚüÜñÑ'-./`¨";
+    const reemplazos = "AAAAEEEEIIIIOOOOUUUUXX,,,,,,";
+    let resultado = "";
+
+    for (let i = 0; i < cadena.length; i++) {
+        if (cadena[i] >= "a" && cadena[i] <= "z") {
+            resultado += cadena[i].toUpperCase();
+        } else {
+            let indice = noValidos.indexOf(cadena[i]);
+
+            if (indice !== -1) {
+                resultado += reemplazos[indice];
+            } else {
+                resultado += cadena[i];
+            }
+        }
+    }
+    return resultado;
+}
+
+
+// Verifica si la cadena es alfabetica
+function esAlfabetico(cadena) {
+    return /^[a-zA-Z\s]+$/.test(cadena);
+}
+
+// Elimina dobles espacios y espacios al inicio y fin
+function noDoblesEspacios(cadena) {
+    let resultado = cadena.replace(/\s{2,}/g, " ");
     return resultado.toUpperCase().trim();
 }
 
-function primVocalInter(string) {
+// Devuelve primera vocal interna
+function primVocalInter(cadena) {
     const vocales = ["A", "E", "I", "O", "U"];
-    for (let i = 1; i < string.length; i++) {
-        let char = string[i].toUpperCase();
+    for (let i = 1; i < cadena.length; i++) {
+        let char = cadena[i].toUpperCase();
         if (vocales.includes(char)) {
             return char;
         }
@@ -130,10 +162,11 @@ function primVocalInter(string) {
     return "X";
 }
 
-function primConsonInter(string) {
+// Devuelve primera consonante interna
+function primConsonInter(cadena) {
     const vocales = ["A", "E", "I", "O", "U"];
-    for (let i = 1; i < string.length; i++) {
-        let char = string[i].toUpperCase();
+    for (let i = 1; i < cadena.length; i++) {
+        let char = cadena[i].toUpperCase();
         if (!vocales.includes(char) && char.match(/[A-Z]/)) {
             return char;
         }
@@ -141,6 +174,7 @@ function primConsonInter(string) {
     return "X";
 }
 
+// Valida si la fecha existe
 function validarFecha(dia, mes, anio) {
     let fechaAct = new Date();
     let diaAct = parseInt(fechaAct.getDate(), 10);
@@ -184,10 +218,12 @@ function validarFecha(dia, mes, anio) {
     return true;
 }
 
+// Verifica si un año es bisiesto
 function esBisiesto(anio) {
     return (anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0;
 }
 
+// Asigna caracter de homonimia
 function homonimia(anio) {
     const anioNum = parseInt(anio, 10); // Convertir anio entero
     if (anioNum < 2000) {
@@ -201,6 +237,7 @@ function homonimia(anio) {
     }
 }
 
+// Verifica que primeros 4 caracteres no formen una palabra altisonante
 function altisonante(curp) {
     let substr = curp.slice(0, 4).join("");
 
@@ -222,27 +259,84 @@ function altisonante(curp) {
     return curp;
 }
 
+// Genera un numero aleatorio en un rango dado
 function genNumAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function validarCaracteres(cadena) {
-    const noValidos = "áÁäÄéÉëËíÍïÏóÓöÖúÚüÜñÑ'-./`¨";
-    const reemplazos = "AAAAEEEEIIIIOOOOUUUUXX,,,,,,";
-    let resultado = "";
-
-    for (let i = 0; i < cadena.length; i++) {
-        if (cadena[i] >= "a" && cadena[i] <= "z") {
-            resultado += cadena[i].toUpperCase();
-        } else {
-            let indice = noValidos.indexOf(cadena[i]);
-
-            if (indice !== -1) {
-                resultado += reemplazos[indice];
-            } else {
-                resultado += cadena[i];
-            }
-        }
-    }
-    return resultado;
+function crearOpcion(valor, texto) {
+    const option = document.createElement("option");
+    option.text = texto;
+    option.value = valor;
+    return option;
 }
+
+function llenarSelectores() {
+    const dias = Array.from({ length: 31 }, (_, i) => (i + 1).toString().padStart(2, '0'));
+    const meses = [
+        { nombre: 'Enero', valor: '01' },
+        { nombre: 'Febrero', valor: '02' },
+        { nombre: 'Marzo', valor: '03' },
+        { nombre: 'Abril', valor: '04' },
+        { nombre: 'Mayo', valor: '05' },
+        { nombre: 'Junio', valor: '06' },
+        { nombre: 'Julio', valor: '07' },
+        { nombre: 'Agosto', valor: '08' },
+        { nombre: 'Septiembre', valor: '09' },
+        { nombre: 'Octubre', valor: '10' },
+        { nombre: 'Noviembre', valor: '11' },
+        { nombre: 'Diciembre', valor: '12' }
+    ];
+    const estados = {
+        "AGUASCALIENTES": "AS",
+        "BAJA CALIFORNIA": "BC",
+        "BAJA CALIFORNIA SUR": "BS",
+        "CAMPECHE": "CC",
+        "COAHUILA": "CL",
+        "COLIMA": "CM",
+        "CHIAPAS": "CS",
+        "CHIHUAHUA": "CH",
+        "DISTRITO FEDERAL": "DF",
+        "DURANGO": "DG",
+        "GUANAJUATO": "GT",
+        "GUERRERO": "GR",
+        "HIDALGO": "HG",
+        "JALISCO": "JC",
+        "MEXICO": "MC",
+        "MICHOACAN": "MN",
+        "MORELOS": "MS",
+        "NAYARIT": "NT",
+        "NUEVO LEON": "NL",
+        "OAXACA": "OC",
+        "PUEBLA": "PL",
+        "QUERETARO": "QT",
+        "QUINTANA ROO": "QR",
+        "SAN LUIS POTOSI": "SP",
+        "SINALOA": "SL",
+        "SONORA": "SR",
+        "TABASCO": "TC",
+        "TAMAULIPAS": "TS",
+        "TLAXCALA": "TL",
+        "VERACRUZ": "VZ",
+        "YUCATAN": "YN",
+        "ZACATECAS": "ZS",
+        "EXTRANJERO": "NE"
+    };
+
+    const selectorDia = document.getElementById("diaNac");
+    dias.forEach(dia => selectorDia.appendChild(crearOpcion(dia, dia)));
+
+    const selectorMes = document.getElementById("mesNac");
+    meses.forEach(mes => selectorMes.appendChild(crearOpcion(mes.valor, mes.nombre)));
+
+    const selectorEstado = document.getElementById("estadoNac");
+    for (const estado in estados) {
+        selectorEstado.appendChild(crearOpcion(estados[estado], estado));
+    }
+}
+
+function limpiarForm() {
+    document.getElementById("mensajes").innerText = '';
+}
+
+llenarSelectores();
