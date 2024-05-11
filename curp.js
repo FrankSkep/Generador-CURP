@@ -15,11 +15,16 @@ function validarDatos() {
 
     if (!validarCampo(datos.nombre, "Ingrese un nombre.(*)")) return;
     if (!validarCampo(datos.apPate, "Ingrese un apellido.(*)")) return;
-    if (!validarCampo(datos.diaNac, "Seleccione el día de nacimiento.(*)")) return;
-    if (!validarCampo(datos.mesNac, "Seleccione el mes de nacimiento.(*)")) return;
-    if (!validarCampo(datos.anioNac, "Seleccione el año de nacimiento.(*)")) return;
+    if (!validarCampo(datos.diaNac, "Seleccione el día de nacimiento.(*)"))
+        return;
+    if (!validarCampo(datos.mesNac, "Seleccione el mes de nacimiento.(*)"))
+        return;
+    if (!validarCampo(datos.anioNac, "Seleccione el año de nacimiento.(*)"))
+        return;
     if (!validarCampo(datos.sexo, "Seleccione el sexo.(*)")) return;
-    if (!validarCampo(datos.estadoNac, "Seleccione el estado de nacimiento.(*)"))
+    if (
+        !validarCampo(datos.estadoNac, "Seleccione el estado de nacimiento.(*)")
+    )
         return;
     if (!validarFecha(datos.diaNac, datos.mesNac, datos.anioNac)) {
         mostrarMensaje("Ingrese una fecha valida.");
@@ -58,10 +63,11 @@ function validarCampo(valor, mensajeError) {
 function generarCurp(datos) {
     let CURP = [];
 
-    CURP[0] = datos.apPate.length > 0 ? datos.apPate[0] : "X";
+    CURP[0] =
+        datos.apPate.length > 0 ? (datos.apPate[0] == "," ? "X" : "X") : "X";
     CURP[1] = datos.apPate.length > 0 ? primVocalInter(datos.apPate) : "X";
-    CURP[2] = datos.apMate.length > 0 ? datos.apMate[0] : "X";
-    CURP[3] = datos.nombre[0];
+    CURP[2] = datos.apMate.length > 0 ? datos.apMate[0] == ',' ? 'X' : "X" : 'X';
+    CURP[3] = datos.nombre[0] != ',' ? datos.nombre[0] : 'X';
     CURP[4] = datos.anioNac[2];
     CURP[5] = datos.anioNac[3];
     CURP[6] = datos.mesNac[0];
@@ -111,7 +117,8 @@ function validarNombre(nombre) {
 
 // Elimina preposiciones en un cadena
 function elimPrep(cadena) {
-    const prepos = /\b(?:da|das|de|del|der|di|die|dd|y|el|la|los|las|le|les|mac|mc|van|von)\b/gi;
+    const prepos =
+        /\b(?:da|das|de|del|der|di|die|dd|y|el|la|los|las|le|les|mac|mc|van|von)\b/gi;
     let resultado = cadena.replace(prepos, "");
     return noDoblesEspacios(resultado);
 }
@@ -138,10 +145,9 @@ function validarCaracteres(cadena) {
     return resultado;
 }
 
-
 // Verifica si la cadena es alfabetica
 function esAlfabetico(cadena) {
-    return /^[a-zA-Z\s]+$/.test(cadena);
+    return /^[a-zA-Z\s,]+$/.test(cadena);
 }
 
 // Elimina dobles espacios y espacios al inicio y fin
@@ -156,7 +162,11 @@ function primVocalInter(cadena) {
     for (let i = 1; i < cadena.length; i++) {
         let char = cadena[i].toUpperCase();
         if (vocales.includes(char)) {
-            return char;
+            if (cadena[i - 1] == ",") {
+                return "X";
+            } else {
+                return char;
+            }
         }
     }
     return "X";
@@ -167,8 +177,12 @@ function primConsonInter(cadena) {
     const vocales = ["A", "E", "I", "O", "U"];
     for (let i = 1; i < cadena.length; i++) {
         let char = cadena[i].toUpperCase();
-        if (!vocales.includes(char) && char.match(/[A-Z]/)) {
-            return char;
+        if (!vocales.includes(char) && char.match(/[A-Z],/)) {
+            if(char == ',') {
+                return 'X';
+            } else {
+                return char;
+            }
         }
     }
     return "X";
@@ -242,15 +256,87 @@ function altisonante(curp) {
     let substr = curp.slice(0, 4).join("");
 
     const palabras = new Set([
-        "BACA", "BAKA", "BUEI", "BUEY", "CACA", "CACO", "CAGA", "CAGO", "CAKA", "CAKO",
-        "COGE", "COGI", "COJA", "COJE", "COJI", "COJO", "COLA", "CULO", "FALO", "FETO",
-        "GETA", "GUEI", "GUEY", "JETA", "JOTO", "KACA", "KACO", "KAGA", "KAGO", "KAKA",
-        "KAKO", "KOGE", "KOGI", "KOJA", "KOJE", "KOJI", "KOJO", "KOLA", "KULO", "LILO",
-        "LOCA", "LOCO", "LOKA", "LOKO", "MAME", "MAMO", "MEAR", "MEAS", "MEON", "MIAR",
-        "MION", "MOCO", "MOKO", "MULA", "MULO", "NACA", "NACO", "PEDA", "PEDO", "PENE",
-        "PIPI", "PITO", "POPO", "PUTA", "PUTO", "QULO", "RATA", "ROBA", "ROBE", "ROBO",
-        "RUIN", "SENO", "TETA", "VACA", "VAGA", "VAGO", "VAKA", "VUEI", "VUEY", "WUEI",
-        "WUEY"
+        "BACA",
+        "BAKA",
+        "BUEI",
+        "BUEY",
+        "CACA",
+        "CACO",
+        "CAGA",
+        "CAGO",
+        "CAKA",
+        "CAKO",
+        "COGE",
+        "COGI",
+        "COJA",
+        "COJE",
+        "COJI",
+        "COJO",
+        "COLA",
+        "CULO",
+        "FALO",
+        "FETO",
+        "GETA",
+        "GUEI",
+        "GUEY",
+        "JETA",
+        "JOTO",
+        "KACA",
+        "KACO",
+        "KAGA",
+        "KAGO",
+        "KAKA",
+        "KAKO",
+        "KOGE",
+        "KOGI",
+        "KOJA",
+        "KOJE",
+        "KOJI",
+        "KOJO",
+        "KOLA",
+        "KULO",
+        "LILO",
+        "LOCA",
+        "LOCO",
+        "LOKA",
+        "LOKO",
+        "MAME",
+        "MAMO",
+        "MEAR",
+        "MEAS",
+        "MEON",
+        "MIAR",
+        "MION",
+        "MOCO",
+        "MOKO",
+        "MULA",
+        "MULO",
+        "NACA",
+        "NACO",
+        "PEDA",
+        "PEDO",
+        "PENE",
+        "PIPI",
+        "PITO",
+        "POPO",
+        "PUTA",
+        "PUTO",
+        "QULO",
+        "RATA",
+        "ROBA",
+        "ROBE",
+        "ROBO",
+        "RUIN",
+        "SENO",
+        "TETA",
+        "VACA",
+        "VAGA",
+        "VAGO",
+        "VAKA",
+        "VUEI",
+        "VUEY",
+        "WUEI",
+        "WUEY",
     ]);
 
     if (palabras.has(substr)) {
@@ -273,62 +359,66 @@ function crearOpcion(valor, texto) {
 
 // Llena los selectores de dia, mes y estado
 function llenarSelectores() {
-    const dias = Array.from({ length: 31 }, (_, i) => (i + 1).toString().padStart(2, '0'));
+    const dias = Array.from({ length: 31 }, (_, i) =>
+        (i + 1).toString().padStart(2, "0")
+    );
     const meses = [
-        { nombre: 'Enero', valor: '01' },
-        { nombre: 'Febrero', valor: '02' },
-        { nombre: 'Marzo', valor: '03' },
-        { nombre: 'Abril', valor: '04' },
-        { nombre: 'Mayo', valor: '05' },
-        { nombre: 'Junio', valor: '06' },
-        { nombre: 'Julio', valor: '07' },
-        { nombre: 'Agosto', valor: '08' },
-        { nombre: 'Septiembre', valor: '09' },
-        { nombre: 'Octubre', valor: '10' },
-        { nombre: 'Noviembre', valor: '11' },
-        { nombre: 'Diciembre', valor: '12' }
+        { nombre: "Enero", valor: "01" },
+        { nombre: "Febrero", valor: "02" },
+        { nombre: "Marzo", valor: "03" },
+        { nombre: "Abril", valor: "04" },
+        { nombre: "Mayo", valor: "05" },
+        { nombre: "Junio", valor: "06" },
+        { nombre: "Julio", valor: "07" },
+        { nombre: "Agosto", valor: "08" },
+        { nombre: "Septiembre", valor: "09" },
+        { nombre: "Octubre", valor: "10" },
+        { nombre: "Noviembre", valor: "11" },
+        { nombre: "Diciembre", valor: "12" },
     ];
     const estados = {
-        "AGUASCALIENTES": "AS",
+        AGUASCALIENTES: "AS",
         "BAJA CALIFORNIA": "BC",
         "BAJA CALIFORNIA SUR": "BS",
-        "CAMPECHE": "CC",
-        "COAHUILA": "CL",
-        "COLIMA": "CM",
-        "CHIAPAS": "CS",
-        "CHIHUAHUA": "CH",
+        CAMPECHE: "CC",
+        COAHUILA: "CL",
+        COLIMA: "CM",
+        CHIAPAS: "CS",
+        CHIHUAHUA: "CH",
         "DISTRITO FEDERAL": "DF",
-        "DURANGO": "DG",
-        "GUANAJUATO": "GT",
-        "GUERRERO": "GR",
-        "HIDALGO": "HG",
-        "JALISCO": "JC",
-        "MEXICO": "MC",
-        "MICHOACAN": "MN",
-        "MORELOS": "MS",
-        "NAYARIT": "NT",
+        DURANGO: "DG",
+        GUANAJUATO: "GT",
+        GUERRERO: "GR",
+        HIDALGO: "HG",
+        JALISCO: "JC",
+        MEXICO: "MC",
+        MICHOACAN: "MN",
+        MORELOS: "MS",
+        NAYARIT: "NT",
         "NUEVO LEON": "NL",
-        "OAXACA": "OC",
-        "PUEBLA": "PL",
-        "QUERETARO": "QT",
+        OAXACA: "OC",
+        PUEBLA: "PL",
+        QUERETARO: "QT",
         "QUINTANA ROO": "QR",
         "SAN LUIS POTOSI": "SP",
-        "SINALOA": "SL",
-        "SONORA": "SR",
-        "TABASCO": "TC",
-        "TAMAULIPAS": "TS",
-        "TLAXCALA": "TL",
-        "VERACRUZ": "VZ",
-        "YUCATAN": "YN",
-        "ZACATECAS": "ZS",
-        "EXTRANJERO": "NE"
+        SINALOA: "SL",
+        SONORA: "SR",
+        TABASCO: "TC",
+        TAMAULIPAS: "TS",
+        TLAXCALA: "TL",
+        VERACRUZ: "VZ",
+        YUCATAN: "YN",
+        ZACATECAS: "ZS",
+        EXTRANJERO: "NE",
     };
 
     const selectorDia = document.getElementById("diaNac");
-    dias.forEach(dia => selectorDia.appendChild(crearOpcion(dia, dia)));
+    dias.forEach((dia) => selectorDia.appendChild(crearOpcion(dia, dia)));
 
     const selectorMes = document.getElementById("mesNac");
-    meses.forEach(mes => selectorMes.appendChild(crearOpcion(mes.valor, mes.nombre)));
+    meses.forEach((mes) =>
+        selectorMes.appendChild(crearOpcion(mes.valor, mes.nombre))
+    );
 
     const selectorEstado = document.getElementById("estadoNac");
     for (const estado in estados) {
@@ -337,7 +427,7 @@ function llenarSelectores() {
 }
 
 function limpiarForm() {
-    document.getElementById("mensajes").innerText = '';
+    document.getElementById("mensajes").innerText = "";
 }
 
 llenarSelectores();
