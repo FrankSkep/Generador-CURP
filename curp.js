@@ -175,17 +175,16 @@ function primVocalInter(cadena) {
 // Devuelve primera consonante interna
 function primConsonInter(cadena) {
     const vocales = ["A", "E", "I", "O", "U"];
-    for (let i = 1; i < cadena.length; i++) {
+    for (let i = 1; i < cadena.length; i++) { // Comenzar desde el índice 1 para evitar la primera letra
         let char = cadena[i].toUpperCase();
-        if (!vocales.includes(char) && char.match(/[A-Z],/)) {
-            if(char == ',') {
-                return 'X';
-            } else {
-                return char;
-            }
+        if (!vocales.includes(char) && char.match(/[A-Z]/)) {
+            return char;
+        }
+        if (char === ',') {
+            return 'X';
         }
     }
-    return "X";
+    return "X"; // Si no se encuentra ninguna consonante interna
 }
 
 // Valida si la fecha existe
