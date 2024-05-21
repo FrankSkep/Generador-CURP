@@ -64,9 +64,9 @@ function generarCurp(datos) {
     let CURP = [];
 
     CURP[0] =
-        datos.apPate.length > 0 ? (datos.apPate[0] == "," ? "X" : "X") : "X";
+        datos.apPate.length > 0 ? (datos.apPate[0] == "," ? "X" : datos.apPate[0]) : "X";
     CURP[1] = datos.apPate.length > 0 ? primVocalInter(datos.apPate) : "X";
-    CURP[2] = datos.apMate.length > 0 ? datos.apMate[0] == ',' ? 'X' : "X" : 'X';
+    CURP[2] = datos.apMate.length > 0 ? datos.apMate[0] == ',' ? 'X' : datos.apMate[0] : 'X';
     CURP[3] = datos.nombre[0] != ',' ? datos.nombre[0] : 'X';
     CURP[4] = datos.anioNac[2];
     CURP[5] = datos.anioNac[3];
