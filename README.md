@@ -5,7 +5,7 @@ Generador de CURP (Clave Única de Registro de Población) desarrollado en HTML,
 
 ## Características
 
--   Genera CURP válido de acuerdo con las especificaciones oficiales del gobierno mexicano.
+-   Genera CURP válido de acuerdo con las especificaciones oficiales.
 -   Diseño responsive que permite su uso en diferentes dispositivos.
 
 ## Tecnologías utilizadas
@@ -14,10 +14,3 @@ Generador de CURP (Clave Única de Registro de Población) desarrollado en HTML,
 -   **CSS:** Se utiliza para dar estilo y diseño a la página web.
 -   **Bootstrap:** Se utiliza para agilizar el diseño y hacer la página web responsive.
 -   **JavaScript:** Se utiliza para la lógica de generación de CURP y la interactividad de la página.
-
-## Uso
-
-1. Clona este repositorio en tu máquina local y abre el archivo `index.html` en tu navegador web,
-   o da [click aqui](https://generador-curp.vercel.app/) para abrir directamente.
-2. Completa los campos requeridos.
-3. Haz clic en el botón "Generar CURP".
