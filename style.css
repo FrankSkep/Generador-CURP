@@ -1,5 +1,5 @@
 #container {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgb(255, 255, 255);
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
@@ -29,8 +29,7 @@
   }
 
 body {
-    background-image: url('images/background.png');
-    background-size: cover;
+    background-color: #6b6969;
     background-position: center;
     background-attachment: fixed;
 }
@@ -48,7 +47,7 @@ body {
 }
 
 #curpForm {
-    color: #fff;
+    color: #000000;
 }
 
 /* Estilos para hover en la barra de navegación */
