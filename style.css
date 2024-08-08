@@ -1,67 +1,15 @@
-#container {
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    border-style: solid;
-    border-color: white;
-    border-width: 1px;
+#form-container {
+    background-color: white;
+    max-width: 80%;
+    margin: auto;
 }
 
-#mensajes {
-    background-color: #fff;
-    color: #000;
-    border: 2px solid #000000;
-    border-radius: 8px;
-    margin-top: 20px;
-    padding: 10px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
-@media (min-width: 720px) {
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  }
-
-body {
-    background-color: #6b6969;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-.navbar-brand {
-    color: #ffffff;
-}
-
-.navbar {
-    background-color: #343a4094;
-}
-
-.navbar-bottom-border {
-    border-bottom: 1px solid #ccc;
-}
-
-#curpForm {
-    color: #000000;
-}
-
-/* Estilos para hover en la barra de navegación */
-.navbar-transparent.navbar-bottom-border:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Cambié el estilo del botón Limpiar */
-.btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
+footer a {
+    text-decoration: none;
 }

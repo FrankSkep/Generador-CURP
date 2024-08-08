@@ -13,130 +13,80 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <nav class="navbar navbar-transparent navbar-bottom-border">
+    <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand">
-          <img
-            src="images/icon.png"
-            alt="Logo"
-            width="44"
-            height="38"
-            class="d-inline-block align-text-top"
-          />
+          <img src="images/icon.png" alt="Logo" width="44" height="38" class="d-inline-block align-text-top" />
           Generador CURP
         </a>
       </div>
     </nav>
 
-    <div class="container mt-3">
-      <div id="container">
-        <form id="curpForm">
-          <fieldset>
-            <legend class="text-center">Datos Personales</legend>
-            <hr />
-            <div class="mb-2">
-              <label for="nombre" class="form-label">Nombre *:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                placeholder="Ingrese nombre"
-              />
-            </div>
-
-            <div class="row mb-2">
-              <div class="col">
-                <label for="apPat" class="form-label">Primer apellido *:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="apPat"
-                  placeholder="Ingrese apellido"
-                />
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center">Datos Personales</h4>
+          <form id="curpForm">
+            <fieldset>
+              <hr />
+              <div class="mb-2">
+                <label for="nombre" class="form-label">Nombre *:</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingrese nombre" />
               </div>
-              <div class="col">
-                <label for="apMat" class="form-label">Segundo apellido:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="apMat"
-                  placeholder="Ingrese apellido"
-                />
+              <div class="row mb-2">
+                <div class="col">
+                  <label for="apPat" class="form-label">Primer apellido *:</label>
+                  <input type="text" class="form-control" id="apPat" placeholder="Ingrese apellido" />
+                </div>
+                <div class="col">
+                  <label for="apMat" class="form-label">Segundo apellido:</label>
+                  <input type="text" class="form-control" id="apMat" placeholder="Ingrese apellido" />
+                </div>
               </div>
-            </div>
-
-            <div class="row mb-2">
-              <div class="col-md-3">
-                <label for="diaNac" class="form-label"
-                  >Día de nacimiento *:</label
-                >
-                <select class="form-select" id="diaNac">
-                  <option value="" selected>Seleccione el día</option>
-                </select>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <label for="diaNac" class="form-label">Día de nacimiento *:</label>
+                  <select class="form-select" id="diaNac">
+                    <option value="" selected>Seleccione día de nacimiento</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="mesNac" class="form-label">Mes de nacimiento *:</label>
+                  <select class="form-select" id="mesNac">
+                    <option value="" selected>Seleccione mes de nacimiento</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="anioNac" class="form-label">Año de nacimiento *:</label>
+                  <input type="number" class="form-control" id="anioNac" placeholder="Ingrese año de nacimiento" />
+                </div>
+                <div class="col-md-3">
+                  <label for="sexo" class="form-label">Sexo *:</label>
+                  <select class="form-select" id="sexo">
+                    <option value="" selected>Seleccione su sexo</option>
+                    <option value="H">Hombre</option>
+                    <option value="M">Mujer</option>
+                  </select>
+                </div>
               </div>
-              <div class="col-md-3">
-                <label for="mesNac" class="form-label"
-                  >Mes de nacimiento *:</label
-                >
-                <select class="form-select" id="mesNac">
-                  <option value="" selected>Seleccione el mes</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label for="anioNac" class="form-label"
-                  >Año de nacimiento *:</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="anioNac"
-                  placeholder="Ingrese año de nacimiento"
-                />
-              </div>
-              <div class="col-md-3">
-                <label for="sexo" class="form-label">Sexo *:</label>
-                <select class="form-select" id="sexo">
-                  <option value="" selected>Seleccione su sexo</option>
-                  <option value="H">Hombre</option>
-                  <option value="M">Mujer</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="row mb-2">
-              <div class="col">
-                <label for="estadoNac" class="form-label"
-                  >Estado de nacimiento *:</label
-                >
+              <div class="mb-2">
+                <label for="estadoNac" class="form-label">Estado de nacimiento *:</label>
                 <select class="form-select" id="estadoNac">
-                  <option value="" selected>Seleccione el estado</option>
+                  <option value="" selected>Seleccione su estado de nacimiento</option>
                 </select>
               </div>
+            </fieldset>
+            <div class="text-center">
+              <button id="generarBtn" type="button" class="btn btn-success">Generar CURP</button>
+              <button id="limpiarBtn" type="reset" class="btn btn-danger">Limpiar</button>
             </div>
-          </fieldset>
-
-          <div class="text-center">
-            <!-- Boton para generar la curp -->
-            <button
-              type="button"
-              class="btn btn-success"
-              onclick="validarDatos()"
-            >
-              Generar CURP
-            </button>
-            <!-- Boton para limpiar todo el formulario -->
-            <button type="reset" class="btn btn-danger" onclick="limpiarForm()">
-              Limpiar
-            </button>
-          </div>
-
-          <!-- Espacio para desplegar mensajes -->
-          <h5 id="mensajes"></h5>
-        </form>
+            <h5 id="mensajes" class="text-center mt-3"></h5>
+          </form>
+        </div>
       </div>
     </div>
 
-    <footer class="bg-dark text-light text-center py-1">
+    <footer class="bg-dark text-light text-center py-1 mt-4">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -144,12 +94,7 @@
           </div>
           <div class="col">
             <p class="mb-0">
-              <a
-                href="https://github.com/FrankSkep"
-                target="_blank"
-                class="text-light"
-                >Frank Skep</a
-              >
+              <a href="https://github.com/FrankSkep" target="_blank" class="text-light">Frank Skep</a>
             </p>
           </div>
           <div class="col">
